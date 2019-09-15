@@ -1,5 +1,6 @@
 import time
-
+import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 import board
 import busio
 import digitalio
@@ -15,11 +16,33 @@ cs = digitalio.DigitalInOut(board.D5)  # Chip select of the MAX31865 board.
 # with keyword args:
 sensor = adafruit_max31865.MAX31865(spi, cs, rtd_nominal=100, ref_resistor=425.5, wires=2)
 
-# Main loop to print the temperature every second.
-while True:
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+
+# The callback for when a PUBLISH message is received from the server.
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.connect("192.168.1.251", 1883, 60)
+
+# Blocking call that processes network traffic, dispatches callbacks and
+# handles reconnecting.
+# Other loop*() functions are available that give a threaded interface and a
+# manual interface.
+
+
+while 0 == client.loop():
     # Read temperature.
     temp = sensor.temperature
     # Print the value.
     print('Temperature: {0:0.3f}C'.format(temp))
     # Delay for a second.
+    publish.single("temp/", payload='{0:0.3f}'.format(temp), client_id="Wohnzimmer")
     time.sleep(1.0)
+
+client.loop_forever()
+
+
+
+
+
