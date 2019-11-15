@@ -38,7 +38,7 @@ while 0 == client.loop():
     print('Temperature: {0:0.3f}C'.format(temp))
     # Delay for a second.
     publish.single("temp/", payload='{0:0.3f}'.format(temp), client_id="Wohnzimmer")
-    time.sleep(1.0)
+    time.sleep(100.0)
 
 client.loop_forever()
 
