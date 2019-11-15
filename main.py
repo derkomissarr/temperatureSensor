@@ -33,7 +33,7 @@ client.connect("192.168.1.251", 1883, 60)
 
 while 0 == client.loop():
     # Read temperature.
-    temp = sensor.temperature
+    temp = (sensor.temperature-0.25)
     # Print the value.
     print('Temperature: {0:0.3f}C'.format(temp))
     # Delay for a second.
