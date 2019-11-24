@@ -30,15 +30,20 @@ client.connect("192.168.1.251", 1883, 60)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 
-
-while 0 == client.loop():
+def makeTemp():
     # Read temperature.
-    temp = (sensor.temperature-0.2)
+    temp = (sensor.temperature - 0.2)
     # Print the value.
     print('Temperature: {0:0.3f}C'.format(temp))
     # Delay for a second.
     publish.single("temp/", payload='{0:0.3f}'.format(temp), client_id="Wohnzimmer")
-    time.sleep(101.0)
+
+
+makeTemp()
+
+while 0 == client.loop():
+    makeTemp()
+    time.sleep(60.0)
 
 client.loop_forever()
 
