@@ -36,7 +36,7 @@ def makeTemp():
     # Print the value.
     print('Temperature: {0:0.3f}C'.format(temp))
     # Delay for a second.
-    publish.single("temp/", payload='{0:0.3f}'.format(temp), client_id="Wohnzimmer")
+    publish.single("temp/", payload='{0:0.3f}'.format(temp), retain=True, client_id="Wohnzimmer")
 
 
 makeTemp()
