@@ -43,7 +43,7 @@ makeTemp()
 
 while 0 == client.loop():
     makeTemp()
-    time.sleep(60.0)
+    time.sleep(30.0)
 
 client.loop_forever()
 
