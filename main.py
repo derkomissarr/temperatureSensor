@@ -34,16 +34,16 @@ def makeTemp():
     # Read temperature.
     temp = (sensor.temperature - 0.2)
     # Print the value.
-    print('Temperature: {0:0.3f}C'.format(temp))
+    print('Temperature: {0:0.1f}C'.format(temp))
     # Delay for a second.
-    publish.single("temp/", payload='{0:0.3f}'.format(temp), retain=True, client_id="Wohnzimmer")
+    publish.single("temp/", payload='{0:0.1f}'.format(temp), retain=True, client_id="Wohnzimmer")
 
 
 makeTemp()
 
 while 0 == client.loop():
     makeTemp()
-    time.sleep(30.0)
+    time.sleep(10.0)
 
 client.loop_forever()
 
